@@ -1,22 +1,24 @@
 class SortedList {
   constructor(items, length) {
-    this.items = items || [];
+    this.items = items ? items.sort((a, b) => a - b) : [];
     this.length = this.items.length;
   }
 
+
+
   add(item) {
-    for (let i = 0; i < this.items.length; i++) {
-      if (item >= this.items[i]) {
-        this.items.splice(i, 0, item);
+    let i
+    for (i= 0; i < this.length; i++) {
+      if (item < this.items[i]) {
         break;
       }
     }
-
+    this.items.splice(i, 0, item);
     this.length++;
   }
 
   get(pos) {
-    if (pos >= this.items.length) {
+    if (pos >= this.length) {
       throw new Error("OutOfBounds");
     } else {
       let result = this.items[pos];
@@ -25,16 +27,16 @@ class SortedList {
   }
 
   max() {
-    if (!this.items.length) {
+    if (!this.length) {
       throw new Error("EmptySortedList");
     } else {
-      let max = this.items[this.items.length - 1];
+      let max = this.items[this.length - 1];
       return max;
     }
   }
 
   min() {
-    if (!this.items.length) {
+    if (!this.length) {
       throw new Error("EmptySortedList");
     } else {
       let min = this.items[0];
@@ -43,7 +45,7 @@ class SortedList {
   }
 
   sum() {
-    if (!this.items.length) {
+    if (!this.length) {
       return 0;
     } else {
       let total = 0;
@@ -55,14 +57,14 @@ class SortedList {
   }
 
   avg() {
-    if (!this.items.length) {
+    if (!this.length) {
       throw new Error("EmptySortedList");
     } else {
       let total = 0;
       this.items.forEach((element) => {
         total += element;
       });
-      let avg = total / this.items.length;
+      let avg = total / this.length;
       return avg;
     }
   }
